@@ -1,0 +1,31 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <property name="nodeName" value="node1"/>
+    <property name="maxHistory" value="180"/>
+    <property name="maxFileSize" value="200MB"/>
+    <property name="log.file.basePath" value="/data/logs/zk-console"/>
+
+    <appender name="root_logger_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file.basePath}/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.file.basePath}/app-%d{yyyy-MM-dd_HH}.%i.rolled_log</fileNamePattern>
+            <MaxHistory>${maxHistory}</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${maxFileSize}</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger %M %line: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO" additivity="false">
+        <appender-ref ref="root_logger_appender"/>
+    </root>
+
+    <logger name="org.zdxue" level="DEBUG" additivity="false">
+        <appender-ref ref="root_logger_appender"/>
+    </logger>
+
+</configuration>
