@@ -29,7 +29,7 @@
                 <#if displayPath??>
                 <li><a href="home?zkPath=/appconfig/hosts&navigate=true">Hosts</a></li>
 
-                <#if authRole?? && authRole == 'ADMIN' >
+                <#if roleId?? && roleId == 1 >
                 <li><a href="#" data-toggle="modal" data-target="#addNodeModal">Add Node</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#addPropertyModal" id="addPropertyBtn">Add Property</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#deleteModal">Delete</a></li>

@@ -33,12 +33,12 @@
                         <#assign breadCrumbPath = "">
                         <#if breadCrumbLst?has_content>
                             <#list breadCrumbLst as breadCrumb>
-
                                 <#if breadCrumb != "">
                                     <#assign breadCrumbPath = breadCrumbPath + "/" +  breadCrumb>
                                 </#if>
 
-                                <li><a href="home?zkPath=${breadCrumbPath}" class="breadcrumb-select">${breadCrumb}</a>
+                                <li>
+                                    <a href="home?zkPath=${breadCrumbPath}" class="breadcrumb-select">${breadCrumb}</a>
                                 </li>
                             </#list>
                         <#else>
@@ -52,7 +52,7 @@
             <div class="row-fluid">
                 <div class="col-md-3 well pre-scrollable scroll-pane">
                     <span class="glyphicon glyphicon-folder-close"></span>
-                    <a href="home?zkPath=${parentPath}"><..></a>
+                    <a href="home?zkPath=${parentPath}">..</a>
                     <br/>
                     <#list nodeLst as node>
                         <input type="checkbox" name="nodeChkGroup" value="${currentPath}${node}"/>
@@ -78,7 +78,7 @@
                                     <input type="checkbox" name="propChkGroup" value="${currentPath}${leaf.name?html}"/>
                                 </td>
                                 <td>
-                                    <#if authRole?? && authRole == 'ADMIN' >
+                                    <#if roleId?? && roleId == 1 >
                                         <#if leaf.value??>
                                             <a href="#" data-toggle="modal" class="href-select"
                                                data-target="#addPropertyModal"
