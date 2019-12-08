@@ -15,18 +15,15 @@
 # limitations under the License.
 #
 -->
-<#import "layouts/main-layout.ftl" as main>
-<@main.page>
-    <div class="container">
-        <div class="row-fluid">
-            <div class="col-md-12 text-center">
-                <h3>Not Found!</h3>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-12 text-left">
-                ${error!''}
-            </div>
-        </div>
-    </div>
-</@main.page> 
+<title>ZK UI</title>
+
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link href="static/images/zookeeper.ico" rel="shortcut icon" type="image/x-icon">
+<link href="static/css/bootstrap.min.css" rel="stylesheet">
+<link href="static/css/zkacd.css" rel="stylesheet">
+
+<script src="static/js/jquery-1.10.2.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/home.js"></script>

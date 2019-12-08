@@ -15,18 +15,20 @@
 # limitations under the License.
 #
 -->
-<#import "layouts/main-layout.ftl" as main>
-<@main.page>
-    <div class="container">
-        <div class="row-fluid">
-            <div class="col-md-12 text-center">
-                <h3>Not Found!</h3>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-12 text-left">
-                ${error!''}
-            </div>
-        </div>
-    </div>
-</@main.page> 
+<#macro page>
+<html>
+    <head>
+        <#include "../common/include.ftl"/>
+    </head>
+    <body>
+        <div id="wrap">
+            <#include "../common/login-menubar.ftl"/>
+            <!-- Content starts -->
+            <#nested>
+            <!-- Content ends -->
+        </div>    
+        <#include "../common/footer.ftl"/>
+    </body>
+</html>
+</#macro>
+

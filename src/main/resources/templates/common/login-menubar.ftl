@@ -15,18 +15,15 @@
 # limitations under the License.
 #
 -->
-<#import "layouts/main-layout.ftl" as main>
-<@main.page>
+<!-- Menu Bar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="row-fluid">
-            <div class="col-md-12 text-center">
-                <h3>Not Found!</h3>
-            </div>
+
+        <div class="navbar-header">
+            <img src="static/images/zookeeper.png"/>
+            &nbsp;&nbsp;
         </div>
-        <div class="row-fluid">
-            <div class="col-md-12 text-left">
-                ${error!''}
-            </div>
-        </div>
+
     </div>
-</@main.page> 
+</div>
+<!-- Menu Bar Ends -->

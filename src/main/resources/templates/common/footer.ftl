@@ -15,18 +15,24 @@
 # limitations under the License.
 #
 -->
-<#import "layouts/main-layout.ftl" as main>
-<@main.page>
+<!-- Footer starts -->
+<div class="footer">
     <div class="container">
         <div class="row-fluid">
-            <div class="col-md-12 text-center">
-                <h3>Not Found!</h3>
+            <div class="col-md-4 text-left">
+                <p class="text-muted credit">Powered by: <a href="http://www.eclipse.org/jetty/" target="_blank">Jetty</a></p>
             </div>
-        </div>
-        <div class="row-fluid">
-            <div class="col-md-12 text-left">
-                ${error!''}
+            <div class="col-md-4 text-center">
+                <#if uptime??>
+                <p class="text-muted credit">
+                    Started On ${uptime}
+                </p>
+                </#if>
+            </div>
+            <div class="col-md-4 text-right">
+                <p class="text-muted credit"><a href="https://github.com/DeemOpen/zkui/issues" target="_blank">Bugs</a></p>
             </div>
         </div>
     </div>
-</@main.page> 
+</div>
+<!-- Footer ends -->
