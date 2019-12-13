@@ -8,9 +8,7 @@ import org.springframework.util.CollectionUtils;
 import org.zdxue.zk.console.vo.LeafBean;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author xuezhongde
@@ -21,6 +19,30 @@ public class ZKManager {
 
     @Resource
     private CuratorFramework zkClient;
+
+    public Set<LeafBean> searchNodes(String searchStr, int roleId) throws Exception {
+        logger.debug("searchNodes: searchStr={}, roleId={}", searchStr, roleId);
+        return search("/", searchStr, new HashSet<>());
+    }
+
+    private Set<LeafBean> search(String path, String match, Set<LeafBean> searchNodes) throws Exception {
+        List<String> children = zkClient.getChildren().forPath(path);
+        if (CollectionUtils.isEmpty(children)) {
+            return searchNodes;
+        }
+
+        for (String child : children) {
+            path = path.equals("/") ? "" : path;
+            if (child.contains(match)) {
+                searchNodes.add(new LeafBean(path.equals("") ? "/" : path, child, null));
+            }
+
+            String childPath = path + "/" + child;
+            search(childPath, match, searchNodes);
+        }
+
+        return searchNodes;
+    }
 
     public List<String> getNonLeafPaths(String path, int roleId) throws Exception {
         logger.debug("getNonLeafNodes: path={}, roleId={}", path, roleId);

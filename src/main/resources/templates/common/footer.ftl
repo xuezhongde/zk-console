@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row-fluid">
             <div class="col-md-4 text-left">
-                <p class="text-muted credit">Powered by: <a href="http://www.eclipse.org/jetty/" target="_blank">Jetty</a></p>
+                <p class="text-muted credit">Powered by: N/A</p>
             </div>
             <div class="col-md-4 text-center">
                 <#if uptime??>
@@ -30,7 +30,7 @@
                 </#if>
             </div>
             <div class="col-md-4 text-right">
-                <p class="text-muted credit"><a href="https://github.com/DeemOpen/zkui/issues" target="_blank">Bugs</a></p>
+                <p class="text-muted credit"><a href="https://github.com/xuezhongde/zk-console/issues" target="_blank">Bugs</a></p>
             </div>
         </div>
     </div>

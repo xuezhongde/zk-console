@@ -41,8 +41,8 @@
                         <td>
                             <a href="home?zkPath=${leaf.path}">${leaf.path}</a>
                         </td>
-                        <td>${leaf.name}</td>
-                        <td>${leaf.strValue}</td>
+                        <td>${leaf.name!''}</td>
+                        <td></td>
                     </tr>
                     </#list>
                 </tbody>

@@ -31,7 +31,7 @@
                 Node History
             </label>
             <div class="col-md-8">
-                <input type="text" name="historyNode" value="${historyNode}" class="form-control" required>
+                <input type="text" name="historyNode" value="${historyNode!''}" class="form-control" required>
             </div>
             <div class="col-md-2">
                 <button type="submit" name="action" value="showhistory" class="btn btn-primary">Show History</button>

@@ -27,6 +27,7 @@
             <#nested>
             <!-- Content ends -->
         </div>
+        <#include "../common/footer.ftl"/>
     </body>
 </html>
 </#macro>

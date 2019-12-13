@@ -15,12 +15,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author xuezhongde
  */
 @Controller
-public class HomeController {
+public class HomeController extends AbstractController {
 
     @Resource
     private HttpServletRequest request;
@@ -45,15 +46,8 @@ public class HomeController {
     private String doGet(ModelMap model) throws Exception {
         String zkPath = request.getParameter("zkPath");
         String navigate = request.getParameter("navigate");
-
         String currentPath = "/", parentPath = "/", displayPath = "/";
-        Integer roleId = (Integer) request.getSession().getAttribute("roleId");
-        if (roleId == null) {
-            roleId = UserRole.ORDINARY.getRoleId();
-        }
-
-        //TODO will delete
-        request.getSession().setAttribute("roleId", UserRole.ADMIN.getRoleId());
+        int roleId = getSessionUserRoleId();
 
         if (StringUtils.isEmpty(zkPath) || zkPath.equals("/")) {
             zkPath = "/";
@@ -92,9 +86,8 @@ public class HomeController {
         String[] nodeChkGroup = request.getParameterValues("nodeChkGroup");
         String[] propChkGroup = request.getParameterValues("propChkGroup");
 
-        //String searchStr = request.getParameter("searchStr").trim();
-        Integer roleId = (Integer) request.getSession().getAttribute("roleId");
-        UserRole role = UserRole.of(roleId);
+        String searchStr = request.getParameter("searchStr").trim();
+        UserRole role = UserRole.of(getSessionUserRoleId());
 
         switch (action) {
             case "Save Node":
@@ -118,17 +111,16 @@ public class HomeController {
                     //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Updating Property: " + currentPath + "," + newProperty + "=" + newValue);
                 }
                 break;
-            /*
             case "Search":
-                Set<LeafBean> searchResult = ZooKeeperUtil.INSTANCE.searchTree(searchStr, ServletUtil.INSTANCE.getZookeeper(request, response, zkServerLst[0], globalProps), authRole);
-                templateParam.put("searchResult", searchResult);
-                break; */
+                Set<LeafBean> searchResult = zkManager.searchNodes(searchStr, role.getRoleId());
+                model.put("searchResult", searchResult);
+                return "search";
             case "Delete":
                 if (role.equals(UserRole.ADMIN)) {
                     if (propChkGroup != null) {
                         for (String prop : propChkGroup) {
                             List<String> delPropLst = Arrays.asList(prop);
-                            //TODO
+                            zkManager.deleteNodes(delPropLst);
                             request.getSession().setAttribute("flashMsg", "Delete Completed!");
                             //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Deleting Property: " + delPropLst.toString());
                         }

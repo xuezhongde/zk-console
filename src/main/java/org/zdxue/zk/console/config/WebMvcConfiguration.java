@@ -47,7 +47,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/forbidden");
+                .excludePathPatterns("/login", "/static/**", "/forbidden");
     }
 
     @Override

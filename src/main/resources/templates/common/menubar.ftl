@@ -29,7 +29,7 @@
                 <#if displayPath??>
                 <li><a href="home?zkPath=/appconfig/hosts&navigate=true">Hosts</a></li>
 
-                <#if roleId?? && roleId == 1 >
+                <#if user.role.roleId?? && user.role.roleId == 1 >
                 <li><a href="#" data-toggle="modal" data-target="#addNodeModal">Add Node</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#addPropertyModal" id="addPropertyBtn">Add Property</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
@@ -48,10 +48,10 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <#if authName??>
+                <#if user.username??>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;${authName}&nbsp;<b class="caret"></b>&nbsp;</a>
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;${user.username}&nbsp;<b class="caret"></b>&nbsp;</a>
                     <ul class="dropdown-menu">
                         <li><a href="logout">Logout</a></li>
                     </ul>
