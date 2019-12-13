@@ -13,7 +13,6 @@ import org.zdxue.zk.console.vo.LeafBean;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,8 +23,6 @@ public class HomeController {
 
     @Resource
     private HttpServletRequest request;
-    @Resource
-    private HttpServletResponse response;
 
     @Resource
     private ZKConsoleProperties zkConsoleProperties;
