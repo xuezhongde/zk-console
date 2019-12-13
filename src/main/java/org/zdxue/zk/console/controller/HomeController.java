@@ -13,6 +13,7 @@ import org.zdxue.zk.console.vo.LeafBean;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -121,28 +122,27 @@ public class HomeController {
             case "Search":
                 Set<LeafBean> searchResult = ZooKeeperUtil.INSTANCE.searchTree(searchStr, ServletUtil.INSTANCE.getZookeeper(request, response, zkServerLst[0], globalProps), authRole);
                 templateParam.put("searchResult", searchResult);
-                break;
+                break; */
             case "Delete":
                 if (role.equals(UserRole.ADMIN)) {
                     if (propChkGroup != null) {
                         for (String prop : propChkGroup) {
-                            List delPropLst = Arrays.asList(prop);
-                            ZooKeeperUtil.INSTANCE.deleteLeaves(delPropLst, ServletUtil.INSTANCE.getZookeeper(request, response, zkServerLst[0], globalProps));
+                            List<String> delPropLst = Arrays.asList(prop);
+                            //TODO
                             request.getSession().setAttribute("flashMsg", "Delete Completed!");
                             //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Deleting Property: " + delPropLst.toString());
                         }
                     }
                     if (nodeChkGroup != null) {
                         for (String node : nodeChkGroup) {
-                            List delNodeLst = Arrays.asList(node);
-                            ZooKeeperUtil.INSTANCE.deleteFolders(delNodeLst, ServletUtil.INSTANCE.getZookeeper(request, response, zkServerLst[0], globalProps));
+                            List<String> delNodeLst = Arrays.asList(node);
+                            zkManager.deleteNodes(delNodeLst);
                             request.getSession().setAttribute("flashMsg", "Delete Completed!");
                             //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Deleting Nodes: " + delNodeLst.toString());
                         }
                     }
                 }
                 break;
-            */
             default:
                 //No-op
         }

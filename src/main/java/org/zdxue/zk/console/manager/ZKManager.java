@@ -48,12 +48,20 @@ public class ZKManager {
     }
 
     public void createNode(String path, byte[] data) throws Exception {
-        //TODO 匿名内部类不能修改外部变量
         zkClient.create().creatingParentsIfNeeded().forPath(path, data);
     }
 
+    public void deleteNodes(List<String> paths) throws Exception {
+        for (String path : paths) {
+            deleteNode(path);
+        }
+    }
+
+    public void deleteNode(String path) throws Exception {
+        zkClient.delete().forPath(path);
+    }
+
     public void setData(String path, byte[] data) throws Exception {
-        //TODO 匿名内部类不能修改外部变量
         zkClient.setData().forPath(path, data);
     }
 
