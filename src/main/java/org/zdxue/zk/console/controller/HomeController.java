@@ -105,7 +105,6 @@ public class HomeController {
                     request.getSession().setAttribute("flashMsg", "Node created!");
                     //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Creating node: " + currentPath + newNode);
                 }
-                response.sendRedirect("/home?zkPath=" + displayPath);
                 break;
             case "Save Property":
                 if (!newProperty.equals("") && !currentPath.equals("") && role.equals(UserRole.ADMIN)) {
@@ -113,7 +112,6 @@ public class HomeController {
                     request.getSession().setAttribute("flashMsg", "Property Saved!");
                     //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Saving Property: " + currentPath + "," + newProperty + "=" + newValue);
                 }
-                response.sendRedirect("/home?zkPath=" + displayPath);
                 break;
             case "Update Property":
                 if (!newProperty.equals("") && !currentPath.equals("") && role.equals(UserRole.ADMIN)) {
@@ -121,13 +119,11 @@ public class HomeController {
                     request.getSession().setAttribute("flashMsg", "Property Updated!");
                     //dao.insertHistory((String) request.getSession().getAttribute("authName"), request.getRemoteAddr(), "Updating Property: " + currentPath + "," + newProperty + "=" + newValue);
                 }
-                response.sendRedirect("/home?zkPath=" + displayPath);
                 break;
             /*
             case "Search":
                 Set<LeafBean> searchResult = ZooKeeperUtil.INSTANCE.searchTree(searchStr, ServletUtil.INSTANCE.getZookeeper(request, response, zkServerLst[0], globalProps), authRole);
                 templateParam.put("searchResult", searchResult);
-                ServletUtil.INSTANCE.renderHtml(request, response, templateParam, "search.ftl.html");
                 break;
             case "Delete":
                 if (role.equals(UserRole.ADMIN)) {
@@ -148,14 +144,13 @@ public class HomeController {
                         }
                     }
                 }
-                response.sendRedirect("/home?zkPath=" + displayPath);
                 break;
             */
             default:
-                response.sendRedirect("/home");
+                //No-op
         }
 
-        return "home";
+        return "redirect:/home?zkPath=" + displayPath;
     }
 
 }
