@@ -42,7 +42,7 @@ public class HomeController {
         return "error";
     }
 
-    private String doGet(ModelMap model) {
+    private String doGet(ModelMap model) throws Exception {
         String zkPath = request.getParameter("zkPath");
         String navigate = request.getParameter("navigate");
 
@@ -66,8 +66,8 @@ public class HomeController {
             }
         }
 
-        List<String> nodeLst = zkManager.getChildren(zkPath, roleId);
-        List<LeafBean> leafLst = zkManager.getLeaves(zkPath, roleId);
+        List<String> nodeLst = zkManager.getNonLeafPaths(zkPath, roleId);
+        List<LeafBean> leafLst = zkManager.getLeafNodes(zkPath, roleId);
 
         model.put("currentPath", currentPath);
         model.put("displayPath", displayPath);

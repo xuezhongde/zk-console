@@ -12,6 +12,7 @@ public class ZKConsoleProperties {
     private String zkServer;
     private String scmRepo;
     private String scmRepoPath;
+    private String dataPath;
 
     public String getZkServer() {
         return zkServer;
@@ -36,4 +37,13 @@ public class ZKConsoleProperties {
     public void setScmRepoPath(String scmRepoPath) {
         this.scmRepoPath = scmRepoPath;
     }
+
+    public String getDataPath() {
+        return dataPath;
+    }
+
+    public void setDataPath(String dataPath) {
+        this.dataPath = dataPath;
+    }
+
 }

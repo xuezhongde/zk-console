@@ -4,6 +4,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.zdxue.zk.console.vo.LeafBean;
 
 import javax.annotation.Resource;
@@ -21,26 +22,49 @@ public class ZKManager {
     @Resource
     private CuratorFramework zkClient;
 
-    //TODO
+    public List<String> getNonLeafPaths(String path, int roleId) throws Exception {
+        logger.debug("getNonLeafNodes: path={}, roleId={}", path, roleId);
+
+        List<String> children = zkClient.getChildren().forPath(path);
+        if (CollectionUtils.isEmpty(children)) {
+            return Collections.emptyList();
+        }
+
+        List<String> nonLeafPaths = new ArrayList<>(children.size());
+        for (String child : children) {
+            path = path.equals("/") ? "" : path;
+            String nonLeafPath = path + "/" + child;
+            byte[] data = getData(nonLeafPath);
+            if (data != null && data.length <= 0) {
+                nonLeafPaths.add(child);
+            }
+        }
+        return nonLeafPaths;
+    }
+
+    public List<LeafBean> getLeafNodes(String path, int roleId) throws Exception {
+        logger.debug("getLeafNodes: path={}, roleId={}", path, roleId);
+
+        List<String> children = zkClient.getChildren().forPath(path);
+        if (CollectionUtils.isEmpty(children)) {
+            return Collections.emptyList();
+        }
+
+        List<LeafBean> leafBeans = new ArrayList<>(children.size());
+        for (String child : children) {
+            path = path.equals("/") ? "" : path;
+            byte[] data = getData(path + "/" + child);
+            if (data != null && data.length > 0) {
+                leafBeans.add(new LeafBean(path, child, data));
+            }
+        }
+        return leafBeans;
+    }
+
     public List<String> getChildren(String path, int roleId) {
         logger.debug("getChildren: path={}, roleId={}", path, roleId);
         try {
             return zkClient.getChildren().forPath(path);
-        } catch (Exception e) {
-            logger.error("list error", e);
-        }
-        return Collections.emptyList();
-    }
-
-    //TODO
-    public List<LeafBean> getLeaves(String path, int roleId) {
-        logger.debug("getLeaves: path={}, roleId={}", path, roleId);
-        try {
-            List<LeafBean> leaves = new ArrayList<>(3);
-            leaves.add(new LeafBean("111", "xxx", "hello".getBytes()));
-            leaves.add(new LeafBean("222", "yyy", "hi".getBytes()));
-            leaves.add(new LeafBean("333", "zzz", "yeap".getBytes()));
-            return leaves;
         } catch (Exception e) {
             logger.error("list error", e);
         }
@@ -63,6 +87,10 @@ public class ZKManager {
 
     public void setData(String path, byte[] data) throws Exception {
         zkClient.setData().forPath(path, data);
+    }
+
+    public byte[] getData(String path) throws Exception {
+        return zkClient.getData().forPath(path);
     }
 
 }
