@@ -55,12 +55,12 @@ public class ZKManager {
         List<String> nonLeafPaths = new ArrayList<>(children.size());
         for (String child : children) {
             path = path.equals("/") ? "" : path;
-            String nonLeafPath = path + "/" + child;
-            byte[] data = getData(nonLeafPath);
-            if (data != null && data.length <= 0) {
+            if (hasChildren(path + "/" + child)) {
                 nonLeafPaths.add(child);
             }
         }
+
+        Collections.sort(nonLeafPaths);
         return nonLeafPaths;
     }
 
@@ -75,18 +75,26 @@ public class ZKManager {
         List<LeafBean> leafBeans = new ArrayList<>(children.size());
         for (String child : children) {
             path = path.equals("/") ? "" : path;
-            byte[] data = getData(path + "/" + child);
-            if (data != null && data.length > 0) {
+            if (!hasChildren(path + "/" + child)) {
+                byte[] data = getData(path + "/" + child);
                 leafBeans.add(new LeafBean(path, child, data));
             }
         }
+
+        Collections.sort(leafBeans);
         return leafBeans;
+    }
+
+    private boolean hasChildren(String path) {
+        return !CollectionUtils.isEmpty(getChildren(path, -1));
     }
 
     public List<String> getChildren(String path, int roleId) {
         logger.debug("getChildren: path={}, roleId={}", path, roleId);
         try {
-            return zkClient.getChildren().forPath(path);
+            List<String> children = zkClient.getChildren().forPath(path);
+            Collections.sort(children);
+            return children;
         } catch (Exception e) {
             logger.error("list error", e);
         }

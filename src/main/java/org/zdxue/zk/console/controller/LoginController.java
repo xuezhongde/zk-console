@@ -1,5 +1,6 @@
 package org.zdxue.zk.console.controller;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,21 @@ public class LoginController extends AbstractController {
     private LoginService loginService;
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    public String login(ModelMap model) throws Exception {
+    public String home(ModelMap model) throws Exception {
+        if (request.getMethod().equalsIgnoreCase(HttpMethod.GET.toString())) {
+            return doGet(model);
+        } else if (request.getMethod().equalsIgnoreCase(HttpMethod.POST.toString())) {
+            return doPost(model);
+        }
+
+        return "error";
+    }
+
+    public String doGet(ModelMap model) throws Exception {
+        return "login";
+    }
+
+    public String doPost(ModelMap model) throws Exception {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String action = request.getParameter("action");
