@@ -32,7 +32,7 @@ public class HomeController extends AbstractController {
     @Resource
     private ZKManager zkManager;
 
-    @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = {"/", "/home"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String home(ModelMap model) throws Exception {
         if (request.getMethod().equalsIgnoreCase(HttpMethod.GET.toString())) {
             return doGet(model);

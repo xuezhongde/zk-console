@@ -58,7 +58,7 @@ public class LoginServiceImpl implements LoginService, InitializingBean {
                 load();
                 watch();
             } else {
-                InputStream inputStream = getClass().getResourceAsStream("/config/" + FILE_NAME);
+                InputStream inputStream = getClass().getResourceAsStream("/" + FILE_NAME);
                 if (inputStream == null) {
                     logger.error("Can not found the file {} in Spring Boot jar", FILE_NAME);
                     System.out.println(String.format("Can not found the file %s in Spring Boot jar", FILE_NAME));
