@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.zdxue.zk.console.manager.ZKManager;
 import org.zdxue.zk.console.model.UserRole;
+import org.zdxue.zk.console.repository.BookRepository;
 import org.zdxue.zk.console.springboot.autoconfigure.ZKConsoleProperties;
 import org.zdxue.zk.console.vo.LeafBean;
 
@@ -31,6 +32,9 @@ public class HomeController extends AbstractController {
 
     @Resource
     private ZKManager zkManager;
+
+    @Resource
+    private BookRepository bookRepository;
 
     @RequestMapping(value = {"/", "/home"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String home(ModelMap model) throws Exception {
@@ -72,6 +76,21 @@ public class HomeController extends AbstractController {
         model.put("scmRepo", zkConsoleProperties.getScmRepo());
         model.put("scmRepoPath", zkConsoleProperties.getScmRepoPath());
         model.put("navigate", navigate);
+
+        //TODO 测试代码, 待删除
+        /*
+        Book book = new Book();
+        book.setName("Book-" + UUID.randomUUID().toString());
+        book.setTimestamp(System.currentTimeMillis());
+        bookRepository.save(book);
+
+        List<Book> books = bookRepository.findAll();
+        System.out.println("book list size: " + books.size());
+
+        for (Book _book : books) {
+            System.out.println(JSON.toJSONString(_book));
+        }
+        */
 
         return "home";
     }
