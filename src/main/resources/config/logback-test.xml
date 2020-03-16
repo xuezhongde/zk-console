@@ -4,12 +4,13 @@
     <property name="nodeName" value="node1"/>
     <property name="maxHistory" value="180"/>
     <property name="maxFileSize" value="200MB"/>
-    <property name="log.file.basePath" value="/data/logs/zk-console"/>
+    <property name="log.dir" value="./logs"/>
+    <property name="log.file" value="zk-console.log"/>
 
     <appender name="root_logger_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.file.basePath}/app.log</file>
+        <file>${log.dir}/${log.file}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.file.basePath}/app-%d{yyyy-MM-dd_HH}.%i.rolled_log</fileNamePattern>
+            <fileNamePattern>${log.dir}/${log.file}-%d{yyyy-MM-dd_HH}.%i.rolled_log</fileNamePattern>
             <MaxHistory>${maxHistory}</MaxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${maxFileSize}</maxFileSize>
