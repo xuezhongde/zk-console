@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 -->
-<title>ZK UI</title>
+<title>zk-console</title>
 
 <meta name="description" content="">
 <meta name="author" content="">
